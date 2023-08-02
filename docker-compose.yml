@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+    python-app:
+        image: python:3.10.4
+        command: sh -c "echo 'Python is ready!' && sleep infinity"
+
+    web-api:
+        container_name: "chess"
+        hostname: localhost
+        build:
+            context: .
+        command: 'python3 manage.py runserver 0.0.0.0:8000 --settings=chessApp.settings'
+        volumes:
+            - '.:/chessAPI'
+        ports:
+            - '8000:8000'
+        # This is for the debugger on the environment
+        stdin_open: true
